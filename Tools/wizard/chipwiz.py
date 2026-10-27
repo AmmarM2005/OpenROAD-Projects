@@ -180,6 +180,47 @@ def step_status(ctx, st):
         return "stale", "inputs changed since this ran"
     return "done", time.strftime("%H:%M", time.localtime(t))
 
+def verdict(ctx, st, status, mark, note):
+    """GDSII step: a red cross when timing or DRC failed, an amber warning when timing was never checked."""
+    if not st.get("summary") or status != "done":
+        return mark, note
+    try:
+        import csv
+        with open(ctx.proj / "out" / "runs.tsv", encoding="utf-8") as f:
+            last = list(csv.reader(f, delimiter="\t"))[-1]
+        slack, drc = last[2], last[6]
+    except Exception:
+        return mark, note
+    try:
+        import math
+        s = float(slack)
+        if not math.isfinite(s):
+            raise ValueError
+    except ValueError:
+        return amber("⚠"), f"timing not checked (slack {slack})"
+    if s < 0:
+        return rose("✗"), f"timing failed (slack {s:.2f} ns): raise the clock with c, then rebuild"
+    if drc not in ("0", "?"):
+        return rose("✗"), f"DRC failed ({drc} violations)"
+    return mark, note
+
+def run_yosys(ctx, mode):
+    print(dim("  Opening the Yosys shell. Type help for commands, exit to come back here."))
+    subprocess.call(["zsh", "-c", f"unalias -a 2>/dev/null; source {TOOLS_SH}; oyosys {mode} {ctx.name}"])
+
+def open_report(ctx):
+    rc, out, _ = spin("Building the HTML report", f"oreport {ctx.name}")
+    print()
+    for l in out.splitlines():
+        if l.strip():
+            print("  " + dim(l))
+    rep = ctx.proj / "out" / "report.html"
+    if rc == 0 and rep.exists():
+        subprocess.Popen(["xdg-open", str(rep)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        print(green("  ✓ Report opened in your browser: ") + str(rep))
+    else:
+        print(rose("  ✗ Could not build the report. Run the GDSII step first so a run is saved."))
+
 # ---------------- checks ----------------
 def check(st, ctx, path):
     kind = st.get("check")
@@ -374,9 +415,13 @@ def flow_step(st, i, n, ctx):
             keys.append("v OpenROAD GUI")
         if st.get("klayout"):
             keys += ["k KLayout", "3 KLayout 2.5D view"]
+        if st.get("id") == "synth":
+            keys += ["y Yosys shell", "n netlist in Yosys"]
         a = ask("Press " + ", ".join(keys) + " · Enter to continue", "").lower()
         if a == "v" and st.get("views"):
             view_gui(ctx, st)
+        elif a in ("y", "n") and st.get("id") == "synth":
+            run_yosys(ctx, "net" if a == "n" else "rtl")
         elif a == "k" and st.get("klayout"):
             open_klayout(ctx, False)
         elif a == "3" and st.get("klayout"):
@@ -407,6 +452,7 @@ def step_menu(ctx, steps, idx):
         refresh_stale(ctx)
         status, note = step_status(ctx, st)
         mark = {"done": green("✓"), "stale": amber("⚠"), "todo": dim("·")}[status]
+        mark, note = verdict(ctx, st, status, mark, note)
         title = st["title"]
         print(f"\n  {bold(f'Step {idx + 1}: {title}')}  {mark} {dim(note)}")
         if st["type"] == "edit":
@@ -414,6 +460,7 @@ def step_menu(ctx, steps, idx):
             print(dim(f"   e edit it{extra} · g guided walk from here · Enter back"))
         else:
             kl = " · k KLayout · 3 2.5D view" if st.get("klayout") else ""
+            kl += " · y Yosys shell · n netlist in Yosys" if st.get("id") == "synth" else ""
             print(dim("   v view in GUI · l log · p report" + kl + " · r rebuild up to here · g guided walk from here · Enter back"))
         a = ask("Choose", "", nav=False).lower()
         if a == "":
@@ -441,6 +488,8 @@ def step_menu(ctx, steps, idx):
                 open_klayout(ctx, False)
             elif a == "3" and st.get("klayout"):
                 open_klayout(ctx, True)
+            elif a in ("y", "n") and st.get("id") == "synth":
+                run_yosys(ctx, "net" if a == "n" else "rtl")
             elif a == "r":
                 if ask("This clears the results of this step and every later one. Rebuild? (Y/n)", "y", nav=False).lower().startswith("n"):
                     continue
@@ -460,10 +509,11 @@ def hub(ctx, steps):
             s, note = step_status(ctx, st)
             statuses.append(s)
             mark = {"done": green("✓"), "stale": amber("⚠"), "todo": dim("·")}[s]
+            mark, note = verdict(ctx, st, s, mark, note)
             print(f"   {i:>2}  {mark}  {st['title']:<30} {dim(note)}")
         print(dim("\n   number = open that step   a = guided walk from the first unfinished step"))
         print(dim("   r = run all remaining   s = summary   f = final layout (OpenROAD)   k = KLayout   3d = 2.5D view"))
-        print(dim("   c = change clock period   h = run history   x = clean everything   q = quit"))
+        print(dim("   c = change clock period   h = run history   w = HTML report   y = Yosys shell   x = clean everything   q = quit"))
         sel = ask("What next?", "", nav=False).lower()
         if sel in ("q", "quit"):
             bye(dim("\n  Bye. Run `Chip Designing OPENROAD` any time to come back.\n")); return
@@ -507,6 +557,10 @@ def hub(ctx, steps):
         elif sel == "f":
             print(dim("  Opening... close the window to come back."))
             subprocess.run(["zsh", "-c", f"source {TOOLS_SH}; ogui final {ctx.name}"], capture_output=True)
+        elif sel == "w":
+            open_report(ctx)
+        elif sel == "y":
+            run_yosys(ctx, "rtl")
         elif sel == "k":
             open_klayout(ctx, False)
         elif sel == "3d":

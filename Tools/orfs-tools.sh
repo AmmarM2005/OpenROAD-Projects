@@ -1063,3 +1063,40 @@ o25d() {
   t="${t%/}"
   o3d "$t"
 }
+
+oyosys() {   # oyosys [rtl|net] [proj] : interactive Yosys shell with the design already loaded (rtl = your Verilog, net = the synthesized netlist)
+  local mode=rtl
+  [[ "$1" == rtl || "$1" == net ]] && { mode="$1"; shift; }
+  local p plat top f c net lib
+  p="$(_oproj "$1")" || return 1
+  plat="$(_ovar "$p" PLATFORM)"; top="$(_ovar "$p" DESIGN_NAME)"
+  command -v yosys >/dev/null || { echo "yosys not found (load the OSS CAD Suite environment first)"; return 1; }
+  mkdir -p "$p/yosys"; f="$p/yosys/start-$mode.ys"
+  local -a rtl libs; rtl=("$p"/rtl/*.v(N) "$p"/rtl/*.sv(N))
+  libs=("$ORFS_FLOW/platforms/$plat/lib/"*tt*.lib(N) "$ORFS_FLOW/platforms/$plat/lib/"*.lib(N)); lib="${libs[1]:-}"
+  if [[ "$mode" == net ]]; then
+    for c in 1_2_yosys.v 1_synth.v; do [[ -f "$p/results/$c" ]] && { net="$p/results/$c"; break; }; done
+    [[ -n "$net" ]] || { echo "no synthesized netlist yet: run osyn first"; return 1; }
+    { [[ -n "$lib" ]] && echo "read_liberty -overwrite -setattr liberty_cell -lib $lib"
+      echo "read_verilog -sv $net"; echo "hierarchy -top $top"; echo "shell"; } > "$f"
+  else
+    { echo "read_verilog -sv ${rtl[*]}"; echo "hierarchy -check -top $top"; echo "proc"; echo "opt"; echo "shell"; } > "$f"
+  fi
+  echo "Yosys shell for $top ($mode). Script: $f"
+  echo "  try:  stat   ls   select -list t:*   synth -top $top   abc -g AND,OR,XOR   write_verilog out.v   exit"
+  command -v dot >/dev/null && echo "  schematic:  show -format svg   (graphviz found)" || echo "  schematic (show) needs graphviz, which is not installed"
+  ( cd "$p" && yosys -s "$f" )
+}
+opush() {   # opush ["message"] : commit and push all OpenROAD work (sources, final GDS, reports) to GitHub
+  local r="$ORFS_ROOT" big
+  [[ -d "$r/.git" ]] || { echo "not a git repo yet: run git_setup.zsh first"; return 1; }
+  git -C "$r" add -A || return 1
+  if git -C "$r" diff --cached --quiet; then
+    echo "nothing new to commit"
+  else
+    big="$(git -C "$r" diff --cached --name-only --diff-filter=AM -z | xargs -0 -I{} du -k "$r/{}" 2>/dev/null | awk '$1 > 5000')"
+    [[ -n "$big" ]] && { echo "files over 5 MB are staged, stopping:"; echo "$big"; git -C "$r" reset -q; return 1; }
+    git -C "$r" commit -q -m "${*:-update $(date '+%Y-%m-%d %H:%M')}" && echo "✓ committed"
+  fi
+  git -C "$r" push -u origin main 2>&1 | tail -3
+}
