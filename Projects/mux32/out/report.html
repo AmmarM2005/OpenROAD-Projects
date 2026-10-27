@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mux32 — OpenROAD Run Report</title>
+<style>
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+body { margin: 0 auto; padding: 24px; max-width: 1500px; line-height: 1.45; }
+h1 { margin-bottom: 4px; }
+.muted { opacity: .72; }
+.small { font-size: .86rem; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 12px; margin: 24px 0; }
+.card { border: 1px solid #8886; border-radius: 10px; padding: 16px; }
+.value { font-size: 1.65rem; font-weight: 650; margin: 8px 0; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+th[data-sort] { cursor: pointer; user-select: none; }
+.controls { display:flex; gap:12px; flex-wrap:wrap; margin:12px 0; }
+.controls input { padding:9px; min-width:260px; max-width:100%; }
+th, td { padding: 10px; border-bottom: 1px solid #8885; text-align: left; vertical-align: top; }
+th { position: sticky; top: 0; background: Canvas; }
+.mono { font-family: ui-monospace, monospace; white-space: nowrap; }
+.good { color: #16803c; font-weight: 650; }
+.bad { color: #d33; font-weight: 650; }
+.links { min-width: 210px; }
+a { color: LinkText; }
+details { border: 1px solid #8885; border-radius: 8px; margin: 10px 0; padding: 12px; }
+summary { cursor: pointer; font-weight: 600; }
+.details { margin-top: 10px; }
+footer { margin-top: 28px; font-size: .85rem; opacity: .7; }
+@media print { body { max-width: none; } th { position: static; } }
+
+.charts-container { margin: 1.5rem 0; }
+.charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+.chart-box { border: 1px solid #8886; border-radius: 8px; padding: 12px; }
+.chart-box h3 { font-size: 0.95rem; margin: 0 0 8px 0; }
+.chart-empty { font-size: 0.85rem; opacity: 0.7; font-style: italic; padding: 2rem 0; text-align: center; }
+.ppa-svg { width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+<header>
+<h1>mux32 — OpenROAD Run Report</h1>
+<div class="muted">Project: /home/ammar/Ammar_Linux/OpenROAD/Projects/mux32 · Generated: 2026-10-26T21:54:28+05:30</div>
+<p>This report reads saved run data only. It does not launch or modify a design flow.
+Metrics are shown only when recorded in run history, manifests, summaries, or timing reports.</p>
+</header>
+<div class="cards"><section class="card"><div class="muted">Saved runs</div><div class="value">1</div><div class="muted small">From run history and saved snapshots</div></section><section class="card"><div class="muted">Best recorded slack</div><div class="value">6.34 ns</div><div class="muted small">Higher is better</div></section><section class="card"><div class="muted">Timing met</div><div class="value">1 / 1</div><div class="muted small">Based on recorded slack</div></section><section class="card"><div class="muted">DRC-clean runs</div><div class="value">1 / 1</div><div class="muted small">Only known zero counts</div></section></div>
+<h2>Run history</h2>
+<div class="controls">
+<input id="runFilter" type="search" placeholder="Filter runs, metrics, or status..." aria-label="Filter run history">
+<span class="muted small">Select a column heading to sort. Select it again to reverse.</span>
+</div>
+<div class="table-wrap">
+
+    <section class="charts-container">
+        <h2 style="font-size: 1.15rem; margin-bottom: 0.75rem;">PPA Trade-Off Trends</h2>
+        <div class="charts-grid">
+            
+        <div class="chart-box">
+            <h3>Timing Slack vs. Period</h3>
+            <p class="chart-empty">Insufficient numeric data (requires &ge; 2 runs).</p>
+        </div>
+            
+        <div class="chart-box">
+            <h3>Design Area vs. Period</h3>
+            <p class="chart-empty">Insufficient numeric data (requires &ge; 2 runs).</p>
+        </div>
+            
+        <div class="chart-box">
+            <h3>Total Power vs. Period</h3>
+            <p class="chart-empty">Insufficient numeric data (requires &ge; 2 runs).</p>
+        </div>
+        </div>
+    </section>
+    
+<table id="runsTable">
+<thead><tr>
+<th data-sort>Run ID ↕</th><th data-sort>Clock (ns) ↕</th><th data-sort>Slack (ns) ↕</th><th data-sort>Timing ↕</th><th data-sort>Power (mW) ↕</th>
+<th data-sort>Area (µm²) ↕</th><th data-sort>Utilization ↕</th><th data-sort>DRC ↕</th><th data-sort>Clock tree ↕</th>
+<th data-sort>Saved data ↕</th><th>Artifacts</th>
+</tr></thead>
+<tbody>
+<tr><td class="mono">20261026-041417_10.0ns</td><td>10.0</td><td class="good">6.34</td><td class="good">MET</td><td>0.032</td><td>702</td><td>7%</td><td class="good">0</td><td>-</td><td>Saved artifacts</td><td class="links"><a href="runs/20261026-041417_10.0ns/summary.txt">Summary</a> · <a href="runs/20261026-041417_10.0ns/reports/6_finish.rpt">Timing</a> · <a href="runs/20261026-041417_10.0ns/reports/synth_stat.txt">Synthesis</a> · <a href="runs/20261026-041417_10.0ns/reports/5_route_drc.rpt">Route DRC</a> · <a href="runs/20261026-041417_10.0ns/6_final.gds">GDS</a> · <a href="runs/20261026-041417_10.0ns/6_final.def">DEF</a> · <a href="runs/20261026-041417_10.0ns/6_final.odb">ODB</a></td></tr>
+</tbody>
+</table>
+</div>
+<h2>Run details</h2>
+<details><summary>20261026-041417_10.0ns — run details</summary><table class="details"><tbody><tr><th>Worst slack</th><td>6.34</td></tr><tr><th>WNS</th><td>0.00</td></tr><tr><th>TNS</th><td>0.00</td></tr><tr><th>Minimum period</th><td>3.66</td></tr><tr><th>Fmax</th><td>273.38</td></tr></tbody></table></details>
+<footer>Generated locally by Tools/oreport.py. All links are relative to this report.</footer>
+<script>
+(() => {
+  const table = document.getElementById("runsTable");
+  const filter = document.getElementById("runFilter");
+  if (!table) return;
+
+  const body = table.tBodies[0];
+  const headers = Array.from(table.tHead.rows[0].cells);
+  let sortColumn = -1;
+  let descending = false;
+
+  filter?.addEventListener("input", () => {
+    const query = filter.value.trim().toLowerCase();
+    for (const row of body.rows) {
+      row.hidden = !row.innerText.toLowerCase().includes(query);
+    }
+  });
+
+  headers.forEach((header, column) => {
+    if (!header.hasAttribute("data-sort")) return;
+    header.tabIndex = 0;
+    header.setAttribute("role", "button");
+    header.setAttribute("aria-label", "Sort by " + header.innerText);
+
+    const sort = () => {
+      if (sortColumn === column) descending = !descending;
+      else {
+        sortColumn = column;
+        descending = false;
+      }
+
+      const rows = Array.from(body.rows);
+      rows.sort((a, b) => {
+        const av = a.cells[column]?.innerText.trim() ?? "";
+        const bv = b.cells[column]?.innerText.trim() ?? "";
+        const an = Number(av.replace(/[%,$µ²a-zA-Z ]/g, ""));
+        const bn = Number(bv.replace(/[%,$µ²a-zA-Z ]/g, ""));
+        const numeric = av !== "" && bv !== "" &&
+          Number.isFinite(an) && Number.isFinite(bn) &&
+          /[-+]?\d/.test(av) && /[-+]?\d/.test(bv);
+        const result = numeric
+          ? an - bn
+          : av.localeCompare(bv, undefined, {numeric: true, sensitivity: "base"});
+        return descending ? -result : result;
+      });
+      rows.forEach(row => body.appendChild(row));
+      headers.forEach((h, i) => {
+        if (h.hasAttribute("data-sort")) {
+          h.setAttribute("aria-sort",
+            i !== sortColumn ? "none" : descending ? "descending" : "ascending");
+        }
+      });
+    };
+
+    header.addEventListener("click", sort);
+    header.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        sort();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

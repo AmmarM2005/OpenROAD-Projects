@@ -1,0 +1,24 @@
+
+20. Printing statistics.
+
+=== counter4bit ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       12        - wires
+       15        - wire bits
+        3        - public wires
+        6        - public wire bits
+        3        - ports
+        6        - port bits
+       11  133.878 cells
+        4   80.077   sky130_fd_sc_hd__dfxtp_1
+        2   25.024   sky130_fd_sc_hd__ha_1
+        2    7.507   sky130_fd_sc_hd__nor2_1
+        2   12.512   sky130_fd_sc_hd__nor2b_1
+        1    8.758   sky130_fd_sc_hd__xnor2_1
+
+   Chip area for module '\counter4bit': 133.878400
+     of which used for sequential elements: 80.076800 (59.81%)
+

@@ -1,0 +1,23 @@
+
+20. Printing statistics.
+
+=== mux41 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       17        - wires
+       53        - wire bits
+        7        - public wires
+       43        - public wire bits
+        7        - ports
+       43        - port bits
+       18  356.592 cells
+        1   11.261   sky130_fd_sc_hd__buf_6
+        1    5.005   sky130_fd_sc_hd__clkbuf_2
+        8  160.154   sky130_fd_sc_hd__dfxtp_1
+        8  180.173   sky130_fd_sc_hd__mux4_2
+
+   Chip area for module '\mux41': 356.592000
+     of which used for sequential elements: 160.153600 (44.91%)
+

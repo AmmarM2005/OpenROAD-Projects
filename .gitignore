@@ -1,0 +1,25 @@
+# whitelist: everything is ignored unless listed below
+/*
+!/.gitignore
+!/README.md
+!/Tools/
+!/Docs/
+!/Projects/
+__pycache__/
+*.pyc
+*.vcd
+/Projects/*/*
+!/Projects/*/rtl/
+!/Projects/*/tb/
+!/Projects/*/constraint.sdc
+!/Projects/*/config.mk
+!/Projects/*/out/
+/Projects/*/out/*
+!/Projects/*/out/runs.tsv
+!/Projects/*/out/report.html
+!/Projects/*/out/runs/
+/Projects/*/out/runs/*/*
+!/Projects/*/out/runs/*/6_final.gds
+!/Projects/*/out/runs/*/summary.txt
+!/Projects/*/out/runs/*/manifest.json
+!/Projects/*/out/runs/*/reports/

@@ -1,0 +1,8 @@
+âƒ´€âƒ´€ mux41 (sky130hd) âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€
+GDSII       : /home/ammar/Ammar_Linux/OpenROAD/OpenROAD-flow-scripts/flow/results/sky130hd/mux41/base/6_final.gds
+area        : 802 um^2  (8% utilization)
+power       : 0.203 mW
+setup slack : 2.68 ns
+DRC         : 0 violations
+clock tree  : 8 sinks, 3 clock buffers
+âƒ¼ƒ³ clean: timing met, 0 DRC

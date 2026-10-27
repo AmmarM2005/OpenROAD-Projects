@@ -1,0 +1,122 @@
+{
+  "title": "Chip Designing  ·  OpenROAD",
+  "subtitle": "RTL to GDSII, one calm step at a time",
+  "steps": [
+    {
+      "id": "rtl", "type": "edit", "title": "Write your RTL",
+      "file": "rtl/{name}.v", "check": "rtl",
+      "intro": ["Describe your hardware in Verilog. Your editor opens with a small skeleton."],
+      "tips": [
+        "The top module is already named {name}. Keep that name.",
+        "Keep a clock input called clk, because the constraints file refers to it.",
+        "Save with Ctrl+S. I will notice the save, then press Enter here to continue."
+      ],
+      "stub": [
+        "// ===== RTL for @NAME@ =====",
+        "// The top module must be called @NAME@ and have a clock input named clk.",
+        "module @NAME@ (",
+        "    input wire clk",
+        "    // add more ports here, for example:  , input wire [7:0] a",
+        ");",
+        "",
+        "    // your logic here",
+        "",
+        "endmodule"
+      ]
+    },
+    {
+      "id": "tb", "type": "edit", "title": "Write your testbench",
+      "file": "tb/tb_{name}.v", "check": "tb", "skippable": true,
+      "intro": ["The testbench drives your design and checks the outputs, so you know it works before it becomes silicon."],
+      "tips": [
+        "Instantiate your design as dut, drive the inputs, compare the outputs, count errors.",
+        "Print PASS when everything matches. I will run the simulation and show you the result."
+      ],
+      "stub": [
+        "`timescale 1ns/1ps",
+        "// Testbench for @NAME@: drive inputs, check outputs, print PASS or FAIL.",
+        "module tb_@NAME@;",
+        "    reg clk = 0;",
+        "    always #5 clk = ~clk;          // 100 MHz clock",
+        "",
+        "    // TODO: declare your signals and instantiate the design, for example:",
+        "    // @NAME@ dut (.clk(clk), ...);",
+        "",
+        "    integer errors = 0;",
+        "    initial begin",
+        "        $dumpfile(\"wave.vcd\");",
+        "        $dumpvars(0, tb_@NAME@);",
+        "        // TODO: apply stimulus here, compare outputs, count errors",
+        "",
+        "        if (errors == 0) $display(\"PASS\");",
+        "        else             $display(\"FAILED: %0d errors\", errors);",
+        "        $finish;",
+        "    end",
+        "endmodule"
+      ]
+    },
+    {
+      "id": "sdc", "type": "edit", "title": "Constraints (constraint.sdc)",
+      "file": "constraint.sdc", "check": "sdc",
+      "intro": ["Constraints tell the tools how fast your chip has to run."],
+      "tips": [
+        "clk_period is the clock period in ns. Smaller means faster and harder.",
+        "Input and output delays are set to 20% of the period.",
+        "A ready-made file is in place. Most designs only change clk_period."
+      ]
+    },
+    {
+      "id": "cfg", "type": "edit", "title": "Flow settings (config.mk)",
+      "file": "config.mk", "check": "cfg",
+      "intro": ["config.mk names the design, the platform and the die size."],
+      "tips": [
+        "Only the die size ever needs changing. Tiny designs: keep DIE_AREA and CORE_AREA.",
+        "Bigger designs, such as a CPU: comment out those two lines and enable CORE_UTILIZATION.",
+        "A cramped die is the usual cause of routing trouble."
+      ]
+    },
+    {
+      "id": "synth", "type": "flow", "title": "Synthesis", "cmd": "osyn",
+      "result": "1_synth.odb",
+      "logs": ["1_2_yosys.log", "1_1_yosys_canonicalize.log"], "reports": ["synth_stat.txt"],
+      "views": [["synth", "Netlist as read into the database"]],
+      "about": ["Yosys turns your RTL into real logic gates from the platform's cell library."]
+    },
+    {
+      "id": "floorplan", "type": "flow", "title": "Floorplan", "cmd": "ofp",
+      "result": "2_floorplan.odb",
+      "logs": ["2_1_floorplan.log", "2_4_floorplan_pdn.log"], "reports": ["2_floorplan_final.rpt"],
+      "views": [["tap", "Rows and tap cells, before the power grid"], ["floorplan", "Complete floorplan, with power grid"]],
+      "about": ["Chooses the die and core area, lays out the rows where cells sit, places the IO pins and builds the power grid."]
+    },
+    {
+      "id": "place", "type": "flow", "title": "Placement", "cmd": "opl",
+      "result": "3_place.odb",
+      "logs": ["3_3_place_gp.log", "3_5_place_dp.log"], "reports": ["3_detailed_place.rpt", "3_global_place.rpt", "3_resizer.rpt"],
+      "views": [["gp", "Global placement: rough, cells overlap"], ["place", "Detailed placement: legal final spots"]],
+      "about": ["Puts every gate at a legal spot on the rows, keeping connected cells close together."]
+    },
+    {
+      "id": "cts", "type": "flow", "title": "Clock tree", "cmd": "octs",
+      "result": "4_cts.odb",
+      "logs": ["4_1_cts.log"], "reports": ["4_cts_final.rpt"],
+      "views": [["cts", "Clock buffers inserted (Windows > Clock Tree Viewer)"]],
+      "about": ["Builds a balanced tree of buffers so the clock reaches every flip-flop at almost the same moment. A design with a single flip-flop skips this."]
+    },
+    {
+      "id": "route", "type": "flow", "title": "Routing", "cmd": "ort",
+      "result": "5_route.odb",
+      "logs": ["5_2_route.log", "5_1_grt.log"], "reports": ["5_route_drc.rpt", "5_global_route.rpt"],
+      "views": [["groute", "Global routing guides"], ["route", "Detailed routing: all wires"]],
+      "hint": "A cramped die is the usual cause. Enlarge DIE_AREA in config.mk and rebuild.",
+      "about": ["Draws the real metal wires between cells and fixes design-rule violations. This is the longest step."]
+    },
+    {
+      "id": "gds", "type": "flow", "title": "GDSII", "cmd": "ogds",
+      "result": "6_final.gds", "summary": true, "klayout": true,
+      "logs": ["6_report.log", "6_1_merge.log"], "reports": ["6_finish.rpt"],
+      "views": [["final", "Finished chip with fill cells"]],
+      "about": ["Adds filler cells and writes the final GDSII layout file, the file a foundry would receive."]
+    }
+  ]
+}

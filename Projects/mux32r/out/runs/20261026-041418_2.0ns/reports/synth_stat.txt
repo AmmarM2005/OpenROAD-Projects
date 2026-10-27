@@ -1,0 +1,38 @@
+
+20. Printing statistics.
+
+=== mux32r ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       79        - wires
+      114        - wire bits
+       41        - public wires
+       76        - public wire bits
+        4        - ports
+       39        - port bits
+       76 1.09E+03 cells
+        2   17.517   sky130_fd_sc_hd__a2111oi_0
+        1    10.01   sky130_fd_sc_hd__a2111oi_1
+        1   15.014   sky130_fd_sc_hd__a2111oi_2
+        1    7.507   sky130_fd_sc_hd__a211oi_1
+        1    5.005   sky130_fd_sc_hd__a21oi_1
+        3   26.275   sky130_fd_sc_hd__a221oi_1
+        1   15.014   sky130_fd_sc_hd__a221oi_2
+        1    7.507   sky130_fd_sc_hd__a22oi_1
+        1    6.256   sky130_fd_sc_hd__and2_1
+        1   20.019   sky130_fd_sc_hd__buf_12
+        1   11.261   sky130_fd_sc_hd__buf_6
+       38   760.73   sky130_fd_sc_hd__dfxtp_1
+       12  120.115   sky130_fd_sc_hd__mux2i_1
+        2    7.507   sky130_fd_sc_hd__nand2_1
+        1    6.256   sky130_fd_sc_hd__nand2b_1
+        1    5.005   sky130_fd_sc_hd__nand3_1
+        1    6.256   sky130_fd_sc_hd__nand4_1
+        1    8.758   sky130_fd_sc_hd__nand4b_1
+        6   37.536   sky130_fd_sc_hd__nor2b_1
+
+   Chip area for module '\mux32r': 1093.548800
+     of which used for sequential elements: 760.729600 (69.57%)
+

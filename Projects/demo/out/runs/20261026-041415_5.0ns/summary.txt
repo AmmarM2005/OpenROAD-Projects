@@ -1,0 +1,8 @@
+âƒ´€âƒ´€ demo (sky130hd) âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€
+GDSII       : /home/ammar/Ammar_Linux/OpenROAD/OpenROAD-flow-scripts/flow/results/sky130hd/demo/base/6_final.gds
+area        : 628 um^2  (6% utilization)
+power       : 0.224 mW
+setup slack : 0.70 ns
+DRC         : 0 violations
+clock tree  : 9 sinks, 3 clock buffers
+âƒ¼ƒ³ clean: timing met, 0 DRC

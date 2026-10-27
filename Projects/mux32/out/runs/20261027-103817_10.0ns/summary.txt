@@ -1,0 +1,8 @@
+── mux32 (sky130hd) ──────────────────────────
+GDSII       : /home/ammar/Ammar_Linux/OpenROAD/OpenROAD-flow-scripts/flow/results/sky130hd/mux32/base/6_final.gds
+area        : 702 um^2  (7% utilization)
+power       : 0.032 mW
+setup slack : 6.34 ns
+DRC         : 0 violations
+clock tree  : none
+✓ clean: timing met, 0 DRC

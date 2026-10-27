@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "id": "20261027-172222_5.0ns",
+  "created": "2026-10-27T17:22:25+05:30",
+  "design": "adder8",
+  "platform": "sky130hd",
+  "clk_ns": "5.0",
+  "input_hash": "1e7962c4413e5fb8",
+  "env_hash": "7f31f732ba44",
+  "openroad": "26Q1-951-g6975124cf2 ",
+  "yosys": "Yosys 0.70+219 (git sha1 5053d0e26, Release, Clang /usr/bin/clang++ 21.1.8)",
+  "klayout": "KLayout 0.30.6",
+  "orfs_commit": "01bc23cdf",
+  "slack_ns": "-0.41",
+  "power_mW": "0.053",
+  "area_um2": "419",
+  "util": "7%",
+  "drc": "0",
+  "clock_tree": "-",
+  "timing_met": false,
+  "files": {
+    "rtl/adder8.v": "1d440afa4014",
+    "constraint.sdc": "11aa5a16873d",
+    "config.mk": "db3a73399498"
+  }
+}

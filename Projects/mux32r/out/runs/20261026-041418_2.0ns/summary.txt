@@ -1,0 +1,8 @@
+âƒ´€âƒ´€ mux32r (sky130hd) âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€
+GDSII       : /home/ammar/Ammar_Linux/OpenROAD/OpenROAD-flow-scripts/flow/results/sky130hd/mux32r/base/6_final.gds
+area        : 1578 um^2  (16% utilization)
+power       : 1.600 mW
+setup slack : 0.53 ns
+DRC         : 0 violations
+clock tree  : 38 sinks, 5 clock buffers
+âƒ¼ƒ³ clean: timing met, 0 DRC

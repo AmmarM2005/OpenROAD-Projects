@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "id": "20261027-103817_10.0ns",
+  "created": "2026-10-27T10:38:18+05:30",
+  "design": "mux32",
+  "platform": "sky130hd",
+  "clk_ns": "10.0",
+  "input_hash": "f77007048c1ff472",
+  "env_hash": "7f31f732ba44",
+  "openroad": "26Q1-951-g6975124cf2 ",
+  "yosys": "Yosys 0.70+219 (git sha1 5053d0e26, Release, Clang /usr/bin/clang++ 21.1.8)",
+  "klayout": "KLayout 0.30.6",
+  "orfs_commit": "01bc23cdf",
+  "slack_ns": "6.34",
+  "power_mW": "0.032",
+  "area_um2": "702",
+  "util": "7%",
+  "drc": "0",
+  "clock_tree": "-",
+  "timing_met": true,
+  "files": {
+    "rtl/mux32.v": "abba364f3eb8",
+    "constraint.sdc": "f5db4c9abd28",
+    "config.mk": "61fc02958c16"
+  }
+}

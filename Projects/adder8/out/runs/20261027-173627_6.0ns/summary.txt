@@ -1,0 +1,10 @@
+── adder8 (sky130hd) ──────────────────────────
+GDSII       : /home/ammar/Ammar_Linux/OpenROAD/OpenROAD-flow-scripts/flow/results/sky130hd/adder8/base/6_final.gds
+area        : 427 um^2  (7% utilization)
+power       : 0.049 mW
+setup slack : 0.12 ns
+DRC         : 0 violations
+clock tree  : none
+WNS / TNS   : 0.00 / 0.00 ns
+
+✓ ALL CLEAR: timing met (slack 0.12 ns), 0 DRC violations

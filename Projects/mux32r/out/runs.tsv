@@ -1,0 +1,2 @@
+id	clk_ns	slack_ns	power_mW	area_um2	util	drc	clock_tree
+20261026-041418_2.0ns	2.0	0.53	1.600	1578	16%	0	38 sinks, 5 clock buffers

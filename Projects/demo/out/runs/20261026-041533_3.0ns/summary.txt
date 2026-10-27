@@ -1,0 +1,8 @@
+âƒ´€âƒ´€ demo (sky130hd) âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€âƒ´€
+GDSII       : /home/ammar/Ammar_Linux/OpenROAD/OpenROAD-flow-scripts/flow/results/sky130hd/demo/base/6_final.gds
+area        : 651 um^2  (7% utilization)
+power       : 0.373 mW
+setup slack : -0.24 ns
+DRC         : 0 violations
+clock tree  : 9 sinks, 3 clock buffers
+âƒ¼ƒ· TIMING VIOLATED: raise clk_period in constraint.sdc, then ofresh
